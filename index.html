@@ -1,55 +1,75 @@
 <!DOCTYPE html>
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cartão de Visitas Digital</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Gerador de Cartão de Visitas Digital</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <div class="layout-principal">
-        <div id="banner">
+        <header id="banner">
             <h1>Gerador de Cartão de Visitas Digital</h1>
-            <h2>Um gerador de cartão automático sem utilidade nenhuma</h2>
+            <p>Crie cartões criativos, coloridos e um pouco exagerados para apresentar sua versão digital.</p>
+        </header>
+
+        <nav id="menu">
+            <a href="#conteudo">Projeto</a>
+            <a href="#area-interativa">Gerador</a>
+            <a href="#lateral">Dicas</a>
+            <a href="https://github.com/kailamlima/pagina-web" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+
+        <div id="wrapper">
+            <main id="conteudo">
+                <h2>Sobre o projeto</h2>
+                <p>
+                    Este site é um exercício simples de HTML, CSS e JavaScript para gerar um cartão de visitas
+                    digital com nome, cargo exótico e visual personalizado.
+                </p>
+
+                <p>
+                    A proposta é transformar uma ideia direta em uma página organizada, usando estrutura
+                    semântica, layout tableless e uma interação feita com JavaScript puro.
+                </p>
+
+                <figure class="imagem-demo">
+                    <img src="img/cartao-demo.svg" alt="Exemplo visual de cartão de visitas digital">
+                    <figcaption>Exemplo visual do estilo usado nos cartões gerados.</figcaption>
+                </figure>
+
+                <section id="area-interativa">
+                    <h2>Gerar cartão</h2>
+                    <p>
+                        Clique no botão, informe um nome e veja o cartão aparecer com um cargo diferente.
+                    </p>
+                    <button id="btn-interativo" type="button">Gerar meu cartão</button>
+                    <p id="mensagem">Nenhum cartão foi gerado ainda.</p>
+                    <section id="cartao-gerado" aria-live="polite">
+                        <p>O cartão digital aparecerá aqui.</p>
+                    </section>
+                </section>
+            </main>
+
+            <aside id="lateral">
+                <h2>Dicas do cartão</h2>
+                <ul>
+                    <li>Use um nome curto para deixar o cartão mais elegante.</li>
+                    <li>Cada clique gera uma combinação visual diferente.</li>
+                    <li>O número do cartão acompanha a quantidade de gerações.</li>
+                </ul>
+
+                <h2>Componentes</h2>
+                <p>Nome, cargo exótico, número do cartão e fundo colorido com efeito visual.</p>
+            </aside>
         </div>
 
-        <div id="menu">
-            <a href="https://codepen.io/" target="_blank" rel="noopener noreferrer">Inspiração no CodePen</a>
-            <a href="https://github.com/kailamlima/pagina-web" target="_blank" rel="noopener noreferrer">Página do GitHub</a>
-        </div>
-
-        <div id="conteudo">
-            <h2>Sobre o projeto</h2>
-            <p>
-                O site em questão é inspirado em uma biblioteca cheia de projetos criativos e experimentos
-                envolvendo front-end.
-            </p>
-
-            <p>
-                A proposta do projeto é uma ideia simples e direta: um retângulo no meio da página que,
-                quando clicado, gera um efeito visual e um cartão de visitas com
-                <span class="destaque">efeitos visuais chamativos</span>.
-            </p>
-
-            <h2>O que terá?</h2>
-            <ol>
-                <li>Haverá um retângulo no meio da página e ele será um objeto clicável.</li>
-                <li>Quando clicável, irá gerar um efeito visual e um cartão.</li>
-                <li>O cartão gerado terá uma marca de visitante e pode ser exótico.</li>
-            </ol>
-
-            <h2>Componentes do cartão</h2>
-            <ul>
-                <li>Estilos de cores diferentes para cada cartão.</li>
-                <li>Título de cargo exótico.</li>
-                <li>Efeito visual de brilho no hover.</li>
-            </ul>
-        </div>
-
-        <div id="rodape">
+        <footer id="rodape">
             <p>Desenvolvido por Kailam Lima - 2026</p>
-        </div>
+        </footer>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

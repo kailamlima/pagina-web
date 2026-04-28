@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="titulo descricao">
+    <title id="titulo">Exemplo visual de cartão de visitas digital</title>
+    <desc id="descricao">Cartão de visitas digital colorido com nome, cargo e número de identificação.</desc>
+    <defs>
+        <linearGradient id="fundo" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0066cc"/>
+            <stop offset="100%" stop-color="#00a6a6"/>
+        </linearGradient>
+    </defs>
+    <rect width="640" height="360" fill="#eaf3ff"/>
+    <rect x="88" y="72" width="464" height="216" rx="18" fill="url(#fundo)"/>
+    <circle cx="500" cy="118" r="36" fill="#ffffff" opacity="0.24"/>
+    <circle cx="535" cy="250" r="52" fill="#ffffff" opacity="0.14"/>
+    <text x="128" y="142" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Kailam Lima</text>
+    <text x="128" y="188" fill="#eaf3ff" font-family="Arial, Helvetica, sans-serif" font-size="24">Consultor de Ideias Brilhantes</text>
+    <rect x="128" y="222" width="144" height="34" rx="4" fill="#ffffff" opacity="0.22"/>
+    <text x="144" y="246" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Cartão nº 01</text>
+</svg>
