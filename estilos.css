@@ -203,6 +203,7 @@ ul {
     max-width: 190px;
     max-height: 110px;
 
+    top: 30px;
     position: fixed;
     right: 01%;
 }
