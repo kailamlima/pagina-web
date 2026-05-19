@@ -173,30 +173,7 @@ ul {
     text-align: left;
     box-shadow: 0 12px 24px rgba(32, 33, 36, 0.25);
     transition: transform 0.3s;
-}
 
-.cartao-gradiente-oceano {
-    background: linear-gradient(135deg, #0066cc, #00a6a6);
-}
-
-.cartao-gradiente-criativo {
-    background: linear-gradient(135deg, #7b2cbf, #f72585);
-}
-
-.cartao-gradiente-floresta {
-    background: linear-gradient(135deg, #1b4332, #52b788);
-}
-
-.cartao-gradiente-solar {
-    background: linear-gradient(135deg, #d00000, #ffba08);
-}
-
-.cartao-gradiente-coral {
-    background: linear-gradient(135deg, #293241, #ee6c4d);
-}
-
-.cartao-gradiente-noite {
-    background: linear-gradient(135deg, #003049, #669bbc);
 }
 
 .cartao-digital:hover {
@@ -220,6 +197,20 @@ ul {
     border: 1px solid rgba(255, 255, 255, 0.62);
     background-color: rgba(255, 255, 255, 0.18);
     font-weight: 700;
+}
+
+.mini-cartao {
+    max-width: 190px;
+    max-height: 110px;
+
+    position: fixed;
+    right: 01%;
+}
+.mini-cartao h3 {
+    font-size: 0.8rem;
+}
+.mini-cartao p {
+    margin: 3px 0;
 }
 
 #rodape {
