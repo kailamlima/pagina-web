@@ -12,6 +12,11 @@ Criar uma página HTML, CSS e JavaScript que gere cartões de visitas digitais c
 - CSS3
 - JavaScript
 
+## Persistência local
+
+O projeto usa `localStorage` para salvar o histórico de cartões gerados no navegador.
+Os dados ficam apenas no navegador e no dispositivo do usuário, sem servidor, banco de dados externo ou dependências.
+
 ## Como abrir o site
 
 Abra o arquivo `index.html` em qualquer navegador moderno.

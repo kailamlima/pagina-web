@@ -1,6 +1,7 @@
 function gerator(size){
     return Math.floor(Math.random() * size);
 }
+
 function geratorColor(){
     let color = "#";
     const hex = "0123456789abcdef";
@@ -10,10 +11,113 @@ function geratorColor(){
     return color;
 }
 
+function escaparHTML(texto) {
+    return String(texto)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+}
+
+function buscarCartoesSalvos() {
+    try {
+        const dadosSalvos = localStorage.getItem(CHAVE_CARTOES);
+        if (!dadosSalvos) {
+            return [];
+        }
+
+        const cartoes = JSON.parse(dadosSalvos);
+        return Array.isArray(cartoes) ? cartoes : [];
+    } catch (erro) {
+        return [];
+    }
+}
+
+function salvarCartao(cartao) {
+    const cartoes = buscarCartoesSalvos();
+    cartoes.push(cartao);
+
+    const ultimosCartoes = cartoes.slice(-LIMITE_HISTORICO);
+
+    try {
+        localStorage.setItem(CHAVE_CARTOES, JSON.stringify(ultimosCartoes));
+    } catch (erro) {
+        if (mensagem) {
+            mensagem.innerHTML = "O cartão foi gerado, mas não foi possível salvar o histórico neste navegador.";
+        }
+    }
+}
+
+function formatarData(dataISO) {
+    const data = new Date(dataISO);
+
+    if (Number.isNaN(data.getTime())) {
+        return "Data não disponível";
+    }
+
+    return data.toLocaleString("pt-BR");
+}
+
+function obterMaiorNumeroSalvo() {
+    const cartoes = buscarCartoesSalvos();
+
+    return cartoes.reduce(function (maiorNumero, cartao) {
+        const numeroCartao = Number(cartao.numero || cartao.contador || 0);
+        return numeroCartao > maiorNumero ? numeroCartao : maiorNumero;
+    }, 0);
+}
+
+function renderizarHistorico() {
+    if (!listaCartoes) {
+        return;
+    }
+
+    const cartoes = buscarCartoesSalvos();
+
+    if (cartoes.length === 0) {
+        listaCartoes.innerHTML = '<p class="historico-vazio">Nenhum cartão salvo ainda.</p>';
+        return;
+    }
+
+    listaCartoes.innerHTML = cartoes
+        .slice()
+        .reverse()
+        .map(function (cartao) {
+            const nome = escaparHTML(cartao.nome || "Sem nome");
+            const cargo = escaparHTML(cartao.cargo || "Cargo não informado");
+            const numero = Number(cartao.numero || cartao.contador || 0);
+            const dataCriacao = escaparHTML(formatarData(cartao.criadoEm));
+
+            return `
+                <article class="item-historico">
+                    <h3>${nome}</h3>
+                    <p>${cargo}</p>
+                    <p>Cartão nº ${numero}</p>
+                    <p class="data-cartao">Criado em ${dataCriacao}</p>
+                </article>
+            `;
+        })
+        .join("");
+}
+
+function limparHistorico() {
+    try {
+        localStorage.removeItem(CHAVE_CARTOES);
+    } catch (erro) {
+        return;
+    }
+
+    contador = 0;
+    renderizarHistorico();
+
+    if (mensagem) {
+        mensagem.innerHTML = "Histórico limpo com sucesso.";
+    }
+}
+
 function geratorLocal(nome){
     let extendido = gerator(10) + 1;
     const colors = [geratorColor(), geratorColor()];
-    const gradienteC = {cores: colors[0] + " e " +colors[1]};
+    const numero = contador + 1;
 
     let cargo = cargoMestre[gerator(cargoMestre.length)] + deUso[0] + tipo[gerator(tipo.length)];
     if(extendido % 2 == 0){
@@ -21,66 +125,81 @@ function geratorLocal(nome){
     }
     cargo += detalhe[gerator(detalhe.length)];
 
-    contador = contador + 1;
+    contador = numero;
 
-    return {nome : nome, cargo : cargo, contador : contador, cores : gradienteC.cores, color1 : colors[0], color2: colors[1]};
+    return {
+        nome: nome,
+        cargo: cargo,
+        corPrimaria: colors[0],
+        corSecundaria: colors[1],
+        numero: numero,
+        criadoEm: new Date().toISOString()
+    };
+}
+
+function mineCarta(nome, cargo){
+    mineCartao.innerHTML = `
+        <article class="cartao-digital mini-cartao" style="background: linear-gradient(135deg,${corPrimaria},${corSecundaria});">
+            <h3>${nome}</h3>
+            <p>${cargo}</p>
+        </article>
+    `;
 }
 
 function renderisador(gerado){
-    mensagem.innerHTML = "O botão foi clicado " + contador + " vez(es).";
+    const nome = escaparHTML(gerado.nome);
+    const cargo = escaparHTML(gerado.cargo);
+    const corPrimaria = gerado.corPrimaria || gerado.color1;
+    const corSecundaria = gerado.corSecundaria || gerado.color2;
+    const numero = gerado.numero || gerado.contador;
+    const cores = escaparHTML(corPrimaria + " e " + corSecundaria);
+
+    mensagem.innerHTML = "O botão foi clicado " + numero + " vez(es).";
     cartaoGerado.innerHTML = `
-        <article class="cartao-digital" style="background: linear-gradient(135deg,${gerado.color1},${gerado.color2});">
-            <h3>${gerado.nome}</h3>
-            <p>${gerado.cargo}</p>
-            <p>Paleta: ${gerado.cores}</p>
+        <article class="cartao-digital" style="background: linear-gradient(135deg,${corPrimaria},${corSecundaria});">
+            <h3>${nome}</h3>
+            <p>${cargo}</p>
+            <p>Paleta: ${cores}</p>
             <p>Cartão de visitas digital gerado automaticamente.</p>
-            <span class="numero-cartao">Cartão nº ${gerado.contador}</span>
+            <span class="numero-cartao">Cartão nº ${numero}</span>
         </article>
     `;
 
-    mineCartao.innerHTML = `
-        <article class="cartao-digital mini-cartao" style="background: linear-gradient(135deg,${gerado.color1},${gerado.color2});">
-            <h3>${gerado.nome}</h3>
-            <p>${gerado.cargo}</p>
-        </article>
-    `;
+    mineCarta(nome, cargo);
 }
 
-const serve = 'http://localhost:8080/gerar-cartao';
-
+const CHAVE_CARTOES = "cartoesGerados";
+const LIMITE_HISTORICO = 10;
 const cargoMestre = ["Especialista ", "Consultor ", "Diretor ", "Analista ", "Arquiteto ", "Gerente "];
 const deUso = [" em ", " de "];
 const tipo = [" Aperto ", " Mãos Virtuais ", " Ideias ", " Cartões ", " Sorrisos ", " Primeiras ", " Criatividade "];
 const detalhe = [" Brilhantes", " Improváveis", " Digitais", " Impressões", " Instantânea"];
 
-let contador = 0;
+let contador = obterMaiorNumeroSalvo();
 
 const botaoInterativo = document.getElementById("btn-interativo");
 const mensagem = document.getElementById("mensagem");
 const cartaoGerado = document.getElementById("cartao-gerado");
-const mineCartao = document.getElementById("lateral");
+const mineCartao = document.getElementById("mini-cartao-area");
+const listaCartoes = document.getElementById("lista-cartoes");
+const botaoLimparHistorico = document.getElementById("btn-limpar-historico");
 
-botaoInterativo.addEventListener("click", async function () {
-    
+botaoInterativo.addEventListener("click", function () {
     const nomeDigitado = prompt("Digite o nome para o cartão:");
-    const nome = nomeDigitado && nomeDigitado.trim() !== "" ? nomeDigitado.trim() : "Visitante Misterioso";
-    let dadosDoCartao;
 
-    try{
-        const response = await fetch(serve, {
-            method: 'POST',
-            headers: {'Content-Type' : 'application/json'},
-            body: JSON.stringify({nome : nome})
-        });
-
-        if (!response.ok) throw new Error('Servidor Offline');
-        dadosDoCartao = await response.json();
-    } catch(Error){
-        console.warn("Backend indisponivelusando geração local.", Error);
-        dadosDoCartao = geratorLocal(nome);
+    if (!nomeDigitado || nomeDigitado.trim() === "") {
+        mensagem.innerHTML = "Informe um nome para gerar o cartão.";
+        return;
     }
 
+    const nome = nomeDigitado.trim();
+    const dadosDoCartao = geratorLocal(nome);
+
     renderisador(dadosDoCartao);
+    salvarCartao(dadosDoCartao);
+    renderizarHistorico();
 });
 
+botaoLimparHistorico.addEventListener("click", limparHistorico);
+renderizarHistorico();
 
