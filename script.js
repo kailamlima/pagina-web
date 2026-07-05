@@ -137,15 +137,6 @@ function geratorLocal(nome){
     };
 }
 
-function mineCarta(nome, cargo){
-    mineCartao.innerHTML = `
-        <article class="cartao-digital mini-cartao" style="background: linear-gradient(135deg,${corPrimaria},${corSecundaria});">
-            <h3>${nome}</h3>
-            <p>${cargo}</p>
-        </article>
-    `;
-}
-
 function renderisador(gerado){
     const nome = escaparHTML(gerado.nome);
     const cargo = escaparHTML(gerado.cargo);
@@ -165,7 +156,12 @@ function renderisador(gerado){
         </article>
     `;
 
-    mineCarta(nome, cargo);
+    mineCartao.innerHTML = `
+        <article class="cartao-digital mini-cartao" style="background: linear-gradient(135deg,${corPrimaria},${corSecundaria});">
+            <h3>${nome}</h3>
+            <p>${cargo}</p>
+        </article>
+    `;
 }
 
 const CHAVE_CARTOES = "cartoesGerados";
