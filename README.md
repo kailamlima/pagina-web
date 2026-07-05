@@ -11,6 +11,18 @@ Criar uma página HTML, CSS e JavaScript que gere cartões de visitas digitais c
 - HTML5
 - CSS3
 - JavaScript
+- API ViaCEP
+- SweetAlert2 via CDN
+
+## Funcionalidades do 2º bimestre
+
+- Manipulação do DOM com JavaScript.
+- Uso de `addEventListener` para eventos de clique e envio de formulário.
+- Validação de formulário com feedback visual para CEP vazio ou inválido.
+- Consumo da API ViaCEP com `fetch`.
+- Tratamento de erro para CEP não encontrado ou falha de rede.
+- Uso da biblioteca SweetAlert2 via CDN para alertas visuais.
+- Persistência local com `localStorage` para manter o histórico de cartões.
 
 ## Persistência local
 

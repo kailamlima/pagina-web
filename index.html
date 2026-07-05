@@ -17,6 +17,7 @@
         <nav id="menu">
             <a href="#conteudo">Projeto</a>
             <a href="#area-interativa">Gerador</a>
+            <a href="#consulta-cep">CEP</a>
             <a href="#lateral">Dicas</a>
             <a href="https://github.com/kailamlima/pagina-web" target="_blank" rel="noopener noreferrer">GitHub</a>
         </nav>
@@ -51,6 +52,20 @@
                     </section>
                 </section>
 
+                <section id="consulta-cep">
+                    <h2>Buscar endereço para o cartão</h2>
+                    <p>Digite um CEP para buscar dados de endereço usando a API ViaCEP.</p>
+
+                    <form id="form-cep">
+                        <label for="cep">CEP:</label>
+                        <input id="cep" name="cep" type="text" maxlength="9" placeholder="Ex: 29000000">
+                        <button type="submit">Buscar endereço</button>
+                    </form>
+
+                    <p id="cep-feedback"></p>
+                    <div id="resultado-cep"></div>
+                </section>
+
                 <section id="historico-cartoes">
                     <h2>Histórico de cartões gerados</h2>
                     <p>Os cartões gerados ficam salvos localmente neste navegador.</p>
@@ -81,6 +96,7 @@
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
 </body>
 </html>
